@@ -26,89 +26,89 @@ public class Dealership {
 
     //get all the vehicles
     public ArrayList<Vehicle> getAllVehicles() {
-        return this.inventory;
+        return this.inventory;//return the inventory
     }
-
+    //remove vehicle method
     public void removeVehicle(Vehicle vehicle) {
         //take the vehicle passed in out of the inventory list
+        inventory.remove(vehicle);//use .remove method to remove the vehicle from the list
     }
-
+    //method to get vehicles by price
     public ArrayList<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
+        //create an arraylist that will hold the filtered result/desired vehivles
+        ArrayList<Vehicle> result = new ArrayList<>();
+        //iterate through the inventory arraylist
+        for(Vehicle vehicle : inventory){
+            //if the vehicle price is between min and max, add it to the result arraylist
+            if(vehicle.getPrice().compareTo(min) >= 0 && vehicle.getPrice().compareTo(max) <= 0){
+                result.add(vehicle);
+            }
+        }
 
-        //loop over inventory and return a list of vehicles that match the price range
-
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        return result;//return the filtered results
     }
-
+    //method to get vehicles by make and model
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-
-        //loop over inventory and return a list of vehicles that match the make and model
-
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        //create an arraylist that will store the result
+        ArrayList<Vehicle> result = new ArrayList<>();
+        //iterate throught the arraylist
+        for(Vehicle vehicle : inventory){
+            //if the there is a match in make and model, add it to the arraylist
+            if(vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)){
+                result.add(vehicle);//add it to the arraylist
+            }
+        }
+        return result;
     }
+    //method to get vehicles by year
+    public ArrayList<Vehicle> getVehiclesByYear(int min, int max) {
+        ArrayList<Vehicle> result = new ArrayList<>();//arraylist to store the filtered desired results
+        //iterate through the inventry, for each cas, if the year is between min and max, add it to the result
+        for(Vehicle vehicle : inventory){
+            if(vehicle.getYear() >= min && vehicle.getYear() <= max){
+                result.add(vehicle);
+            }
+        }
 
-    public ArrayList<Vehicle> getVehiclesByYear(int min, int Max) {
-
-        //loop over inventory and return a list of vehicles that match the year range
-
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        return result;//return the new arralyist
     }
-
+    //method to get vehicles by color
     public ArrayList<Vehicle> getVehiclesByColor(String color) {
+        ArrayList<Vehicle> result = new ArrayList<>();//create arraylist to store the result
 
-        //loop over inventory and return a list of vehicles that match the make and model
+        for(Vehicle vehicle : inventory){//iterate thorugh the list and check if the car has that color, if so add it
+            if(vehicle.getColor().equalsIgnoreCase(color)){
+                result.add(vehicle);
+            }
+        }
 
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        return result;
     }
 
+    //method to get vehicles by mileage
     public ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
-
-        //loop over inventory and return a list of vehicles that match the min and max mileage
-
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        //arraylis to store the desired results
+        ArrayList<Vehicle> result = new ArrayList<>();
+        //iterate through the list, if the vehicle mileage is betweern min and max , add it to result
+        for(Vehicle vehicle : inventory){
+            if(vehicle.getOdometer() >= min && vehicle.getOdometer() <= max){
+                result.add(vehicle);
+            }
+        }
+        return result;
     }
-
+    //method to get vehicles by type
     public ArrayList<Vehicle> getVehiclesByType(String type) {
+        //arraylist to store the desired result
+        ArrayList<Vehicle> result = new ArrayList<>();
 
-        //loop over inventory and return a list of vehicles that match the type
-
-        //start a new list for the filtered cars
-
-        //loop over inventory and add matching cards to filtered list
-
-        //return the list
-
-        return null;
+        //iterate through the list and check if the vehicle type match if so,add to the list
+        for(Vehicle vehicle : inventory){
+            if(vehicle.getVehicleType().equalsIgnoreCase(type)){
+                result.add(vehicle);
+            }
+        }
+        return result;//return the filtered arraylist
     }
 
 }
