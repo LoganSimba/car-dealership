@@ -40,7 +40,7 @@ public class UserInterface {
                 case "1" -> processGetByPriceRequest();
                 case "2" -> processGetByMakeAndModel();//if option is to call the processMakeModel method
                 case "3" -> processGetByYearRequest();
-                case "4" -> processGetByColorRequest();
+                case "4" -> processGetByColor();
                 case "5" -> processGetByPriceRequest();
                 case "6" -> processGetByPriceRequest();
                 case "7" -> processGetAllVehicleRequest();
@@ -125,6 +125,14 @@ public class UserInterface {
         int maxYear = Integer.parseInt(scanner.nextLine().trim());
         // get the vehicle in the range and print them
         displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
+    }
+
+    //method that shows vehicle by color
+    public void processGetByColor() {
+        System.out.println("Color: ");//prompt user for color input and store it
+        String color = scanner.nextLine().trim();
+        // print the vehicles by calling the displayVehicle method that prints the return value of a method that filters by color
+        displayVehicles(dealership.getVehiclesByColor(color));
     }
 
 
