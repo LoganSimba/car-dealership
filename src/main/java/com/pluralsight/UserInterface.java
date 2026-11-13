@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,6 +33,26 @@ public class UserInterface {
             System.out.println("10 - Sell/Lease a Vehicle");
             System.out.println("99 - Quit");
             System.out.print("Enter option: ");
+            //variable to store user input
+            String command = scanner.nextLine().trim();
+
+            switch (command) {
+                case "1" -> processGetByPriceRequest();
+                case "2" -> processGetByPriceRequest();
+                case "3" -> processGetByPriceRequest();
+                case "4" -> processGetByPriceRequest();
+                case "5" -> processGetByPriceRequest();
+                case "6" -> processGetByPriceRequest();
+                case "7" -> processGetByPriceRequest();
+                case "8" -> processGetByPriceRequest();
+                case "9" -> processGetByPriceRequest();
+                case "10" -> processGetByPriceRequest();
+                case "99" -> {
+                    System.out.println("Goodbye!");
+                    appRunning = false;
+                }
+                default -> System.out.println("Invalid option, try again.");
+            }
 
 
         }
@@ -50,14 +71,13 @@ public class UserInterface {
         //ask the user the color
         System.out.println("Search Color:");
         String color = scanner.nextLine().trim();//save user input in a variable
-
+        //call the displaye method and hand it an arraylist that will return a filtered arralist by color
         displayVehicles(dealership.getVehiclesByColor(color));
     }
-
+    //method to return all arraylists
     public void processGetAllVehicleRequest(){
-
+        //calls displayVehicles method and hads it a method that returns all arraylsits
         displayVehicles(dealership.getAllVehicles());
-
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles){
@@ -67,8 +87,24 @@ public class UserInterface {
             //make this better, tables and such
             System.out.println(vehicle.toString());
         }
-
     }
+    //add method to asks user for the min and max price
+    public void processGetByPriceRequest(){
+        // ask the user for the minimum price
+        System.out.print("Min price: ");
+        BigDecimal min = new BigDecimal(scanner.nextLine().trim());
+
+        // ask the user for the maximum price
+        System.out.print("Max price: ");
+        BigDecimal max = new BigDecimal(scanner.nextLine().trim());
+
+        // search the inventory and print the matching vehicles
+        displayVehicles(dealership.getVehiclesByPrice(min, max));
+    }
+
+
+
+
 
 
 }
