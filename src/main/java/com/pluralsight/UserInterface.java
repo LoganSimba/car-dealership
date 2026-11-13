@@ -14,11 +14,11 @@ public class UserInterface {
 
     }
 
-    public void display(){
+    public void display() {
         init();
 
         boolean appRunning = true;
-        while(appRunning){
+        while (appRunning) {
 
             System.out.println("\n=== Car Dealership Menu ===");
             System.out.println("1 - Find vehicles by price");
@@ -39,7 +39,7 @@ public class UserInterface {
             switch (command) {
                 case "1" -> processGetByPriceRequest();
                 case "2" -> processGetByMakeAndModel();//if option is to call the processMakeModel method
-                case "3" -> processGetByPriceRequest();
+                case "3" -> processGetByYearRequest();
                 case "4" -> processGetByColorRequest();
                 case "5" -> processGetByPriceRequest();
                 case "6" -> processGetByPriceRequest();
@@ -59,7 +59,7 @@ public class UserInterface {
 
     }
 
-    private void init(){
+    private void init() {
 
         //create a dealership file manager
         DealershipFileManager dealership = new DealershipFileManager();
@@ -67,28 +67,30 @@ public class UserInterface {
 
     }
 
-    public void processGetByColorRequest(){
+    public void processGetByColorRequest() {
         //ask the user the color
         System.out.println("Search Color:");
         String color = scanner.nextLine().trim();//save user input in a variable
         //call the displaye method and hand it an arraylist that will return a filtered arralist by color
         displayVehicles(dealership.getVehiclesByColor(color));
     }
+
     //method to return all arraylists
-    public void processGetAllVehicleRequest(){
+    public void processGetAllVehicleRequest() {
         //calls displayVehicles method and hads it a method that returns all arraylsits
         displayVehicles(dealership.getAllVehicles());
     }
 
-    private void displayVehicles(ArrayList<Vehicle> vehicles){
+    private void displayVehicles(ArrayList<Vehicle> vehicles) {
         //looper over the list and print it to the screen
-        for(Vehicle vehicle : vehicles){
+        for (Vehicle vehicle : vehicles) {
             //make this better, tables and such
             System.out.println(vehicle.toString());
         }
     }
+
     //add method to asks user for the min and max price
-    public void processGetByPriceRequest(){
+    public void processGetByPriceRequest() {
         // ask the user for the minimum price
         System.out.print("Min price: ");
         BigDecimal min = new BigDecimal(scanner.nextLine().trim());
@@ -102,7 +104,7 @@ public class UserInterface {
     }
 
     //method to process and get the make and model
-    public void processGetByMakeAndModel(){
+    public void processGetByMakeAndModel() {
         System.out.println("Make: ");//ask the user and store in a variable
         String make = scanner.nextLine().trim();
 
@@ -113,7 +115,17 @@ public class UserInterface {
 
     }
 
+    // ask the user for a year range, then display the matching vehicles
+    public void processGetByYearRequest() {
+        System.out.println("Car year ");
+        System.out.println("Min year: "); // ask for the starting year and store that in a variable
+        int minYear = Integer.parseInt(scanner.nextLine().trim());
 
+        System.out.println("Max year: ");//prompt user for year, store it in a variable
+        int maxYear = Integer.parseInt(scanner.nextLine().trim());
+        // get the vehicle in the range and print them
+        displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
+    }
 
 
 }
