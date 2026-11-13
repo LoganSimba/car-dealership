@@ -38,12 +38,12 @@ public class UserInterface {
 
             switch (command) {
                 case "1" -> processGetByPriceRequest();
-                case "2" -> processGetByPriceRequest();
+                case "2" -> processGetByMakeAndModel();//if option is to call the processMakeModel method
                 case "3" -> processGetByPriceRequest();
-                case "4" -> processGetByPriceRequest();
+                case "4" -> processGetByColorRequest();
                 case "5" -> processGetByPriceRequest();
                 case "6" -> processGetByPriceRequest();
-                case "7" -> processGetByPriceRequest();
+                case "7" -> processGetAllVehicleRequest();
                 case "8" -> processGetByPriceRequest();
                 case "9" -> processGetByPriceRequest();
                 case "10" -> processGetByPriceRequest();
@@ -81,7 +81,6 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles){
-
         //looper over the list and print it to the screen
         for(Vehicle vehicle : vehicles){
             //make this better, tables and such
@@ -102,7 +101,17 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByPrice(min, max));
     }
 
+    //method to process and get the make and model
+    public void processGetByMakeAndModel(){
+        System.out.println("Make: ");//ask the user and store in a variable
+        String make = scanner.nextLine().trim();
 
+        System.out.println("Model: ");//ask user the model and store in a variable
+        String model = scanner.nextLine().trim();
+        //call the display vehicle method that will print and hand it an arraylist which returned filtered make and model
+        displayVehicles(dealership.getVehiclesByMakeModel(make, model));
+
+    }
 
 
 
