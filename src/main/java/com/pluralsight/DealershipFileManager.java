@@ -1,7 +1,9 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 
 public class DealershipFileManager {
@@ -50,6 +52,7 @@ public class DealershipFileManager {
 
                 //add the vehicle to the dealership
                 dealership.addVehicle(newCar);
+                inventoryReader.close();//close the bufferReader
 
             }
 
@@ -64,9 +67,33 @@ public class DealershipFileManager {
         return dealership;
 
     }
-
+    //method to save the and write the csv
     public void saveDealership(Dealership dealership){
+        try{
+            // no "true" so here,we erase the file and rewrite it from the inventory list
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
 
+            // get the first line which is a dealership
+            writer.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+            writer.newLine();
+
+            //add the vehicles line by line
+            for (Vehicle vehicle : dealership.getAllVehicles()) {
+                writer.write(vehicle.getVin() + "|" +
+                        vehicle.getYear() + "|" +
+                        vehicle.getMake() + "|" +
+                        vehicle.getModel() + "|" +
+                        vehicle.getVehicleType() + "|" +
+                        vehicle.getColor() + "|" +
+                        vehicle.getOdometer() + "|" +
+                        vehicle.getPrice().toPlainString());
+                writer.newLine();
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("error saving the file " + e.getMessage());
+        }
     }
 
 }
