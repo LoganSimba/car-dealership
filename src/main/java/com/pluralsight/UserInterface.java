@@ -1,10 +1,13 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserInterface {
 
-    Dealership dealership;
+    private Dealership dealership;
+    private static Scanner scanner = new Scanner(System.in);
+
 
     public UserInterface() {
 
@@ -44,13 +47,11 @@ public class UserInterface {
     }
 
     public void processGetByColorRequest(){
-
         //ask the user the color
-        String color = "blue";
-
+        System.out.println("Search Color:");
+        String color = scanner.nextLine().trim();//save user input in a variable
 
         displayVehicles(dealership.getVehiclesByColor(color));
-
     }
 
     public void processGetAllVehicleRequest(){
