@@ -7,7 +7,9 @@ import java.util.Scanner;
 public class UserInterface {
 
     private Dealership dealership;
+    private DealershipFileManager fileManager = new DealershipFileManager();
     private static Scanner scanner = new Scanner(System.in);
+
 
 
     public UserInterface() {
@@ -44,7 +46,7 @@ public class UserInterface {
                 case "5" -> processGetByMileageRequest();
                 case "6" -> processGetByVehicleTypeRequest();
                 case "7" -> processGetAllVehiclesRequest();
-                case "8" -> processGetByPriceRequest();
+                case "8" -> processAddVehicleRequest();
                 case "9" -> processGetByPriceRequest();
                 case "10" -> processGetByPriceRequest();
                 case "99" -> {
@@ -155,5 +157,40 @@ public class UserInterface {
         System.out.println("All vehicles");
         //get all the vehicles and print them
         displayVehicles(dealership.getAllVehicles());
+    }
+    //method to add a vehicle
+    public void processAddVehicleRequest(){
+        System.out.print("VIN: ");//ask use for vin and store it in a vaible
+        int vin = Integer.parseInt(scanner.nextLine().trim());
+
+        System.out.print("Year: ");//ask user for year and store it in a varible
+        int year = Integer.parseInt(scanner.nextLine().trim());
+
+        System.out.print("Make: ");//ask user for make and store it a variable
+        String make = scanner.nextLine().trim();
+
+        System.out.print("Model: ");//ask user for model and store the answer
+        String model = scanner.nextLine().trim();
+
+        System.out.print("Vehicle type: ");//ask user for vehicle type and store the answer
+        String type = scanner.nextLine().trim();
+
+        System.out.print("Color: ");//ask user for color and store it
+        String color = scanner.nextLine().trim();
+
+        System.out.print("Odometer: ");
+        int odometer = Integer.parseInt(scanner.nextLine().trim());
+
+        System.out.print("Price: ");
+        BigDecimal price = new BigDecimal(scanner.nextLine().trim());
+
+        //create the vehicle from the user's input, in the same order as the Vehicle constructor
+        Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
+
+        //add it to the inventory list
+        dealership.addVehicle(vehicle);
+        fileManager.saveDealership(dealership);// rewrite the file so it's saved
+
+        System.out.println("Vehicle added.");//print message to let user know
     }
 }
