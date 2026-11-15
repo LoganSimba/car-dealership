@@ -40,7 +40,7 @@ public class UserInterface {
                 case "1" -> processGetByPriceRequest();
                 case "2" -> processGetByMakeAndModel();//if option is to call the processMakeModel method
                 case "3" -> processGetByYearRequest();
-                case "4" -> processGetByColor();
+                case "4" -> processGetByColorRequest();
                 case "5" -> processGetByPriceRequest();
                 case "6" -> processGetByPriceRequest();
                 case "7" -> processGetAllVehicleRequest();
@@ -67,13 +67,6 @@ public class UserInterface {
 
     }
 
-    public void processGetByColorRequest() {
-        //ask the user the color
-        System.out.println("Search Color:");
-        String color = scanner.nextLine().trim();//save user input in a variable
-        //call the displaye method and hand it an arraylist that will return a filtered arralist by color
-        displayVehicles(dealership.getVehiclesByColor(color));
-    }
 
     //method to return all arraylists
     public void processGetAllVehicleRequest() {
@@ -128,11 +121,24 @@ public class UserInterface {
     }
 
     //method that shows vehicle by color
-    public void processGetByColor() {
+    public void processGetByColorRequest() {
         System.out.println("Color: ");//prompt user for color input and store it
         String color = scanner.nextLine().trim();
         // print the vehicles by calling the displayVehicle method that prints the return value of a method that filters by color
         displayVehicles(dealership.getVehiclesByColor(color));
+    }
+
+    //method to get vehicles between min and max mileage
+    public void processGetByMileageRequest() {
+        System.out.println("Mileage range");//ask user for the min mileage
+        System.out.print("Min: ");
+        int minMileage = Integer.parseInt(scanner.nextLine().trim());
+
+        System.out.print("Max: ");//ask user for the max mileage and store it in a variable
+        int maxMileage = Integer.parseInt(scanner.nextLine().trim());
+        // get the vehicles between min and max mileage, then print them
+        displayVehicles(dealership.getVehiclesByMileage(minMileage, maxMileage));
+
     }
 
 
