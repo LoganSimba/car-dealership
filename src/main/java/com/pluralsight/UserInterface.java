@@ -43,7 +43,7 @@ public class UserInterface {
                 case "4" -> processGetByColorRequest();
                 case "5" -> processGetByMileageRequest();
                 case "6" -> processGetByVehicleTypeRequest();
-                case "7" -> processGetAllVehicleRequest();
+                case "7" -> processGetAllVehiclesRequest();
                 case "8" -> processGetByPriceRequest();
                 case "9" -> processGetByPriceRequest();
                 case "10" -> processGetByPriceRequest();
@@ -141,7 +141,7 @@ public class UserInterface {
 
     }
 
-    //ask user for a vehicle type, then display the matching vehicles
+    //method to ask user for vehicel type and then display it
     public void processGetByVehicleTypeRequest() {
         System.out.print("Vehicle type: "); // ask the user for the type, if its suv, van..
         String type = scanner.nextLine().trim();//store the user answer in a viable
@@ -150,5 +150,10 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByType(type));
     }
 
-
+    //method to print all vehicles
+    public void processGetAllVehiclesRequest() {
+        System.out.println("All vehicles");
+        //get all the vehicles and print them
+        displayVehicles(dealership.getAllVehicles());
+    }
 }
