@@ -38,11 +38,11 @@ public class UserInterface {
 
             switch (command) {
                 case "1" -> processGetByPriceRequest();
-                case "2" -> processGetByMakeAndModel();//if option is to call the processMakeModel method
+                case "2" -> processGetByMakeAndModel();
                 case "3" -> processGetByYearRequest();
                 case "4" -> processGetByColorRequest();
-                case "5" -> processGetByPriceRequest();
-                case "6" -> processGetByPriceRequest();
+                case "5" -> processGetByMileageRequest();
+                case "6" -> processGetByVehicleTypeRequest();
                 case "7" -> processGetAllVehicleRequest();
                 case "8" -> processGetByPriceRequest();
                 case "9" -> processGetByPriceRequest();
@@ -111,10 +111,10 @@ public class UserInterface {
     // ask the user for a year range, then display the matching vehicles
     public void processGetByYearRequest() {
         System.out.println("Car year ");
-        System.out.println("Min year: "); // ask for the starting year and store that in a variable
+        System.out.print("Min year: "); // ask for the starting year and store that in a variable
         int minYear = Integer.parseInt(scanner.nextLine().trim());
 
-        System.out.println("Max year: ");//prompt user for year, store it in a variable
+        System.out.print("Max year: ");//prompt user for year, store it in a variable
         int maxYear = Integer.parseInt(scanner.nextLine().trim());
         // get the vehicle in the range and print them
         displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
@@ -139,6 +139,15 @@ public class UserInterface {
         // get the vehicles between min and max mileage, then print them
         displayVehicles(dealership.getVehiclesByMileage(minMileage, maxMileage));
 
+    }
+
+    //ask user for a vehicle type, then display the matching vehicles
+    public void processGetByVehicleTypeRequest() {
+        System.out.print("Vehicle type: "); // ask the user for the type, if its suv, van..
+        String type = scanner.nextLine().trim();//store the user answer in a viable
+
+        //get the vehicles that match the type, then print them
+        displayVehicles(dealership.getVehiclesByType(type));
     }
 
 
