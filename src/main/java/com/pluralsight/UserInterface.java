@@ -11,13 +11,12 @@ public class UserInterface {
     private static Scanner scanner = new Scanner(System.in);
 
 
-
     public UserInterface() {
-
+        init();
     }
 
     public void display() {
-        init();
+
 
         boolean appRunning = true;
         while (appRunning) {
@@ -47,7 +46,7 @@ public class UserInterface {
                 case "6" -> processGetByVehicleTypeRequest();
                 case "7" -> processGetAllVehiclesRequest();
                 case "8" -> processAddVehicleRequest();
-                case "9" -> processGetByPriceRequest();
+                case "9" -> processRemoveVehicleRequest();
                 case "10" -> processGetByPriceRequest();
                 case "99" -> {
                     System.out.println("Goodbye!");
@@ -158,8 +157,9 @@ public class UserInterface {
         //get all the vehicles and print them
         displayVehicles(dealership.getAllVehicles());
     }
+
     //method to add a vehicle
-    public void processAddVehicleRequest(){
+    public void processAddVehicleRequest() {
         System.out.print("VIN: ");//ask use for vin and store it in a vaible
         int vin = Integer.parseInt(scanner.nextLine().trim());
 
@@ -192,5 +192,34 @@ public class UserInterface {
         fileManager.saveDealership(dealership);// rewrite the file so it's saved
 
         System.out.println("Vehicle added.");//print message to let user know
+    }
+
+    //method to remove vehicle
+    public void processRemoveVehicleRequest() {
+        //ask user for the vin so to specify which vehicle to remove
+        System.out.println("Enter VIN for vehicle to be removed: ");
+        int vin = Integer.parseInt(scanner.nextLine().trim());//store the input in the variable
+
+        //create an instance of a car that will store the car with the matching vin
+        Vehicle vehicleToRemove = null;
+        //iterate through the vehicel arraylist
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicle.getVin() == vin) {//if the vehicle vin matches the user input
+                System.out.println("Remove " + vehicle);//print a message
+                vehicleToRemove = vehicle;//store the car in an instance to remove later and break out the loop
+                break;
+            }
+        }
+        //check if we found a vehicler to remove, if not print a messagee to let the user know
+        if (vehicleToRemove == null) {
+            System.out.println("No vehicle found with vin: " + vin);
+            return;
+        }
+
+        dealership.removeVehicle(vehicleToRemove);
+        fileManager.saveDealership(dealership);
+        //message to let the user know the vehicle was removed successfuly
+        System.out.println("Vehicle removed successfuly");
+
     }
 }
