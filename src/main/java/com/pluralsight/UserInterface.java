@@ -47,7 +47,7 @@ public class UserInterface {
                 case "7" -> processGetAllVehiclesRequest();
                 case "8" -> processAddVehicleRequest();
                 case "9" -> processRemoveVehicleRequest();
-                case "10" -> processGetByPriceRequest();
+                case "10" -> System.out.println("Coming soon..");
                 case "99" -> {
                     System.out.println("Goodbye!");
                     appRunning = false;
@@ -76,6 +76,11 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles) {
+        if (vehicles.isEmpty()) {
+            System.out.println("No vehicles found.");
+            return;
+        }
+
         //looper over the list and print it to the screen
         for (Vehicle vehicle : vehicles) {
             //make this better, tables and such
