@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class SalesContract extends Contract {
-
+    //final tax rate and price threshold
     private static final BigDecimal TAX_RATE = new BigDecimal("0.05");
     private static final BigDecimal PRICE_THRESHOLD = new BigDecimal("10000");
 
