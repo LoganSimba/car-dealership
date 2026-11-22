@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class DealershipFileManager {
 
-    private String csvFile = "inventory.csv";
+    private String csvFile = "C:\\Users\\logan\\pluralsight\\workbook-4\\car-dealership\\inventory.csv";
 
     public Dealership getDealership() {
 

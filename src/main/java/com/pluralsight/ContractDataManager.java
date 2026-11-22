@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class ContractDataManager {
-    private static final String FILE_NAME = "Contracts.csv";
+    private static final String FILE_NAME = "C:\\Users\\logan\\pluralsight\\workbook-4\\car-dealership\\contracts.csv";
 
     //method to save the contract in the csv file
     public void saveContract(Contract contract) {
