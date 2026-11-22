@@ -1,24 +1,21 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
+
 public abstract class Contract {
 
     private String date;
     private String name;
     private String email;
     private Vehicle vehicle;
-    private double totalPrice;
-    private double monthlyPayment;
 
-
-    public Contract(String date, String name, String email, Vehicle vehicle, double totalPrice, double monthlyPayment) {
+    //constructor for contract class,
+    public Contract(String date, String name, String email, Vehicle vehicle) {
         this.date = date;
         this.name = name;
         this.email = email;
         this.vehicle = vehicle;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
     }
-
 
     public String getDate() {
         return date;
@@ -52,17 +49,9 @@ public abstract class Contract {
         this.vehicle = vehicle;
     }
 
+    //method for total price that is begDecimal, since vehicle price is bigDecimal
+    public abstract BigDecimal getTotalPrice();
 
-    public double getMonthlyPayment() {
-        return monthlyPayment;
-    }
-
-    public void setMonthlyPayment(double monthlyPayment) {
-        this.monthlyPayment = monthlyPayment;
-    }
-
-    //abstract method to get the price
-    public abstract double getTotalPrice();
-    //abstract method to get the monthly price
-    public abstract double getMonthlyPrice();
+    //method for monthlypayment that is begDecimal, since vehicle price is bigDecimal
+    public abstract BigDecimal getMonthlyPayment();
 }
