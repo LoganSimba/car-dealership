@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,7 +49,7 @@ public class UserInterface {
                 case "7" -> processGetAllVehiclesRequest();
                 case "8" -> processAddVehicleRequest();
                 case "9" -> processRemoveVehicleRequest();
-                case "10" -> System.out.println("Coming soon..");
+                case "10" -> processSellOrLeaseVehicle();
                 case "99" -> {
                     System.out.println("Goodbye!");
                     appRunning = false;
@@ -225,6 +227,64 @@ public class UserInterface {
         fileManager.saveDealership(dealership);
         //message to let the user know the vehicle was removed successfuly
         System.out.println("Vehicle removed successfuly");
+
+    }
+
+    public void processSellOrLeaseVehicle(){
+        //ask user for the vin and store it in a viraible
+        System.out.print("Enter the VIN of the vehicle: ");
+        int vin = Integer.parseInt(scanner.nextLine().trim());
+        //initialize the vehivle that will match the vin
+        Vehicle contractVehicle = null;
+        //iterate in the dealerhsip vehicles and if the vin match , store it
+        for(Vehicle vehicle : dealership.getAllVehicles()){
+            if(vin == vehicle.getVin()){
+                contractVehicle = vehicle;
+            }
+        }
+        //if we iterated and found no match, there is no vin match, print a message to the user, return
+        if(contractVehicle == null){
+            System.out.println("No vehicle found with VIN:" + vin);
+            return;
+        }
+        //ask user for the name and email and store in variable
+        System.out.println("Customer Name: ");
+        String customerName = scanner.nextLine().trim();
+        System.out.println("Customer Email: ");
+        String email = scanner.nextLine().trim();
+
+        // get the current date and store it as a string
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        //ask the user what type of contract they want, sale or lease and store those
+        System.out.println("Sale or Lease (S/L): ");
+        String type = scanner.nextLine().trim();
+        //initialize contract that will stote the contract type based on the user input
+        Contract contract;
+        if(type.equalsIgnoreCase("s")){
+            System.out.println("Do you want to finance ? (Y/N): ");
+            //boolean will be true if the user input is Y, which means they chose to finance, else boolean will be false
+            boolean finance = scanner.nextLine().trim().equalsIgnoreCase("y");
+            contract = new SalesContract(date, customerName, email, contractVehicle, finance);//create the sales contract
+        //if the user input it l, create the lease contract
+        }else if(type.equalsIgnoreCase("l")){
+            contract = new LeaseContract(date, customerName, email, contractVehicle);
+        }else{//if user input was neither l or s to represent lease or sale, print a message and return
+            System.out.println("Invalid Choice, contract not created");
+            return;
+        }
+        //initialize the contract and save it
+        ContractDataManager contractDataManager = new ContractDataManager();
+        contractDataManager.saveContract(contract);
+        //remove the vehicle in the dealership and save ot
+        dealership.removeVehicle(contractVehicle);
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
+
+
+        //show the customer a summary
+        System.out.println("Contract saved!");
+        System.out.println("Total price: $" + contract.getTotalPrice());
+        System.out.println("Monthly payment: $" + contract.getMonthlyPayment());
 
     }
 }

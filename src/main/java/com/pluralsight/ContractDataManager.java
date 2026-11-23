@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class ContractDataManager {
-    private static final String FILE_NAME = "C:\\Users\\logan\\pluralsight\\workbook-4\\car-dealership\\contracts.csv";
+    private static final String FILE_NAME = "contracts.csv";
 
     //method to save the contract in the csv file
     public void saveContract(Contract contract) {
@@ -20,7 +20,7 @@ public class ContractDataManager {
             if (contract instanceof SalesContract) {
                 SalesContract sale = (SalesContract) contract;//cast down the sale contract to access its methods
                 //add the line for sale contract in csv format including common information from the contract
-                line = "SALE|" + commonInfo
+                line = "SALE|" + commonInfo + "|"
                         + sale.getSalesTaxAmount() + "|" + sale.getRecordingFee()
                         + "|" + sale.getProcessingFee() + "|" + sale.getTotalPrice()
                         + "|" + (sale.isFinance() ? "YES" : "NO") + "|" + sale.getMonthlyPayment();
@@ -40,6 +40,7 @@ public class ContractDataManager {
             }//add the line to the csv file and go the the next line
             writer.write(line);
             writer.newLine();
+            writer.close();//close the csv file
 
         } catch (Exception e) {//catch the exception and print a message
             System.out.println("Error saving contract: " + e.getMessage());
