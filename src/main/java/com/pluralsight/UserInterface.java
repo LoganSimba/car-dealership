@@ -230,20 +230,20 @@ public class UserInterface {
 
     }
 
-    public void processSellOrLeaseVehicle(){
+    public void processSellOrLeaseVehicle() {
         //ask user for the vin and store it in a viraible
         System.out.print("Enter the VIN of the vehicle: ");
         int vin = Integer.parseInt(scanner.nextLine().trim());
         //initialize the vehivle that will match the vin
         Vehicle contractVehicle = null;
         //iterate in the dealerhsip vehicles and if the vin match , store it
-        for(Vehicle vehicle : dealership.getAllVehicles()){
-            if(vin == vehicle.getVin()){
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vin == vehicle.getVin()) {
                 contractVehicle = vehicle;
             }
         }
         //if we iterated and found no match, there is no vin match, print a message to the user, return
-        if(contractVehicle == null){
+        if (contractVehicle == null) {
             System.out.println("No vehicle found with VIN:" + vin);
             return;
         }
@@ -260,15 +260,15 @@ public class UserInterface {
         String type = scanner.nextLine().trim();
         //initialize contract that will stote the contract type based on the user input
         Contract contract;
-        if(type.equalsIgnoreCase("s")){
+        if (type.equalsIgnoreCase("s")) {
             System.out.println("Do you want to finance ? (Y/N): ");
             //boolean will be true if the user input is Y, which means they chose to finance, else boolean will be false
             boolean finance = scanner.nextLine().trim().equalsIgnoreCase("y");
             contract = new SalesContract(date, customerName, email, contractVehicle, finance);//create the sales contract
-        //if the user input it l, create the lease contract
-        }else if(type.equalsIgnoreCase("l")){
+            //if the user input it l, create the lease contract
+        } else if (type.equalsIgnoreCase("l")) {
             contract = new LeaseContract(date, customerName, email, contractVehicle);
-        }else{//if user input was neither l or s to represent lease or sale, print a message and return
+        } else {//if user input was neither l or s to represent lease or sale, print a message and return
             System.out.println("Invalid Choice, contract not created");
             return;
         }
